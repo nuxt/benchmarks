@@ -1,11 +1,11 @@
 # Nuxt.js SSR performance Benchmarks
+[![CircleCI](https://circleci.com/gh/pi0/nuxt-benchmarks.svg?style=svg)](https://circleci.com/gh/pi0/nuxt-benchmarks)
 
 ## Results 
-(Automated CI results coming soon)
 
-- [2.3](https://rawgit.com/pi0/nuxt-benchmarks/master/benchmarks/2.3.html)
-- [2.3 with gzip enabled](https://rawgit.com/pi0/nuxt-benchmarks/master/benchmarks/2.3-gzip.html)
-- [dev](https://rawgit.com/pi0/nuxt-benchmarks/master/benchmarks/dev.html)   
+- [2.3](https://2-92208367-gh.circle-artifacts.com/0/usr/src/app/benchmarks/2.3.html)
+- [2.3 with gzip enabled](https://2-92208367-gh.circle-artifacts.com/0/usr/src/app/benchmarks/2.3-gzip.html)
+- [dev](https://2-92208367-gh.circle-artifacts.com/0/usr/src/app/benchmarks/dev.html)   
 
 ## Testing environment specs
 - Using nuxt 1.0.0-alpha1
