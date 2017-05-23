@@ -20,6 +20,6 @@ $ npm run benchmark
 ## Results 
 (Automated CI results coming soon)
 
-- [2.3](./benchmarks/2.3.html)
-- [2.3 with gzip enabled](./benchmarks/2.3-gzip.html)
-- [dev](./benchmarks/dev.html)   
+- [2.3](https://rawgit.com/pi0/nuxt-benchmarks/master/benchmarks/2.3.html)
+- [2.3 with gzip enabled](https://rawgit.com/pi0/nuxt-benchmarks/master/benchmarks/2.3-gzip.html)
+- [dev](https://rawgit.com/pi0/nuxt-benchmarks/master/benchmarks/dev.html)   
