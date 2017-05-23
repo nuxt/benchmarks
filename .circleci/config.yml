@@ -31,5 +31,5 @@ jobs:
             yarn benchmark
 
       # Upload artifacts
-       - store_artifacts:
+      - store_artifacts:
           path: benchmarks
