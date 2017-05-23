@@ -1,0 +1,14 @@
+# dependencies
+node_modules
+
+# logs
+*.log*
+
+# Nuxt build
+.nuxt
+
+# Nuxt generate
+dist
+
+.idea
+*.iml

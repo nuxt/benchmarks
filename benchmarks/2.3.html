@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Api Benchmark :: report</title>
+    <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/jqPlot/1.0.8/excanvas.min.js"></script><![endif]-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqPlot/1.0.8/jquery.jqplot.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqPlot/1.0.8/plugins/jqplot.canvasTextRenderer.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqPlot/1.0.8/plugins/jqplot.canvasAxisLabelRenderer.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqPlot/1.0.8/plugins/jqplot.highlighter.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqPlot/1.0.8/plugins/jqplot.cursor.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.6.1/lodash.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqPlot/1.0.8/jquery.jqplot.min.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/styles/dark.min.css" type="text/css" />
+
+    <style type="text/css">
+      .jqplot-target {
+        color: #F1F1F1;
+      }
+      table.jqplot-table-legend, table.jqplot-cursor-legend {
+        background-color: rgba(101, 0, 253, 0.89)
+      }
+
+      body {
+        background: #3D3D3D;
+        color: #F1F1F1;
+      }
+
+      a {
+        color: #6699FF;
+      }
+
+      #report-details, #charts {
+        width: 100%;
+        float: left;
+        font-family: "Trebuchet MS",Arial,Helvetica,sans-serif;
+      }
+
+      #report-details {
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .buttons {
+        width: 100%;
+        border-bottom: 1px solid rgb(75, 72, 72);
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+        text-align: right;
+      }
+
+      .button {
+        margin-right: 10px;
+        padding: 6px;
+        text-decoration: none;
+      }
+
+      .button.selected {
+        background-color: rgb(56, 56, 56);
+      }
+
+      .chart {
+        width: 60%;
+        height: 450px;
+        float: left;
+      }
+
+      .distchart {
+        width: 96%;
+        height: 450px;
+        float: left;
+      }
+
+      .panel {
+        height: 450px;
+        overflow-y: auto;
+      }
+
+      .route {
+        width: 90%;
+        margin: 3%;
+        padding: 2%;
+        float: left;
+        background-color: #000000;
+        border-radius: 15px;
+      }
+      .stats-details {
+        font-family: "Trebuchet MS",Arial,Helvetica,sans-serif;
+        font-size: 15px;
+        float: left;
+        width: 36%;
+        padding: 2%;
+      }
+
+      .green {
+        color: green;
+      }
+
+      .red {
+        color: red;
+      }
+
+      .hide {
+        display:none;
+      }
+
+      pre code {
+        overflow-x: auto;
+      }
+
+    </style>
+  </head>
+  <body>
+    <script><!--
+    var data={"benchmark":{"2.3":{"base":{"name":"2.3/base","href":"http://localhost:3000/","stats":{"sample":[0.553580455,0.544550099,0.544535987,0.545225761,0.581829129,0.545511421,0.546335473,0.547066299,0.548772561,0.550854713,0.581125671,0.551313565,0.551993075,0.553358513,0.580482081,0.553626212,0.554384835,0.555793463,0.579659312,0.56144679,0.565414383,0.579329606,0.566675904,0.568958188,0.571318731,0.328385175,0.32794856,0.328194878,0.328348399,0.329584262,0.329714263,0.33026078,0.329358472,0.328045633,0.328264155,0.328514749,0.32795412,0.327312669,0.328231655,0.328290668,0.323911691,0.322583031,0.321912929,0.319938541,0.318686,0.319248338,0.319233372,0.319397156,0.32050259,0.321132495,0.25930169,0.258582836,0.257451744,0.257065162,0.25562104,0.255208801,0.260066301,0.26340527,0.26303109,0.26250852,0.263352243,0.270759726,0.270206795,0.268677147,0.258187702,0.256555422,0.254138432,0.253456783,0.25280122,0.254052478,0.250238834,0.249806496,0.249962154,0.248728857,0.249617909,0.288387245,0.267678621,0.26777997,0.267980531,0.267942471,0.267832141,0.262189505,0.258447704,0.258436586,0.258439579,0.257938392,0.257937108,0.258314709,0.258661094,0.258868924,0.258654252,0.258056846,0.257877667,0.257850726,0.257736976,0.257974741,0.258146222,0.258338229,0.258418198,0.258708562,0.181506008,0.181309725,0.181601371,0.181565449,0.181574858,0.181298179,0.18196144,0.186980157,0.187760162,0.186722721,0.186611109,0.187040026,0.186718872,0.187089204,0.187118283,0.187703287,0.187732366,0.187710556,0.187704142,0.1899659,0.19017031,0.190246428,0.190455969,0.192876808,0.193138947,0.221346997,0.221486834,0.220881303,0.220965975,0.220771829,0.220600775,0.221462886,0.217855362,0.217238713,0.21720493,0.216827756,0.215994297,0.216258147,0.216008837,0.215777486,0.215291266,0.215214292,0.215271167,0.215127055,0.212312792,0.211854796,0.211510978,0.209206028,0.208659512,0.209292838,0.168716318,0.168700496,0.168637206,0.1684901,0.168686812,0.168860431,0.16648535,0.166142387,0.165904622,0.166066267,0.166057716,0.16600084,0.165677121,0.165320046,0.165315342,0.165158401,0.166286072,0.166036761,0.166144952,0.166307881,0.166311303,0.166330546,0.166345085,0.166368178,0.165392316,0.148323716,0.147997858,0.147914042,0.147865719,0.147639073,0.147393611,0.14714601,0.146903115,0.146665777,0.146439559,0.14641219,0.146387815,0.146331795,0.146280051,0.146233439,0.146167156,0.14485389,0.144855173,0.146877456,0.146828706,0.146883444,0.146883871,0.146889003,0.146858641,0.146866338,0.146745745,0.147832792,0.147883253,0.148467401,0.148513586,0.148538388,0.148561908,0.150289124,0.150365671,0.150443928,0.150670573,0.150904917,0.151149524,0.152591507,0.152700126,0.152789929,0.152840818,0.153051215,0.151009688,0.150930575,0.15092972,0.150966069,0.151177321,0.151253012,0.151306466,0.264734786,0.265008472,0.265021728,0.265372388,0.265484856,0.26638802,0.266869109,0.266120749,0.266219532,0.267024341,0.266911444,0.268661753,0.268621555,0.268178525,0.26821915,0.269491791,0.269650015,0.270470218,0.270404363,0.271854898,0.272126874,0.273704845,0.27365866,0.275074558,0.276625588,0.217195095,0.228081384,0.215600018,0.214544616,0.214501425,0.213609808,0.213100068,0.212116935,0.211938184,0.211057257,0.210908868,0.208949875,0.20878994,0.208692439,0.208647966,0.207489931,0.207333845,0.206276305,0.206174528,0.204647017,0.204307048,0.202637563,0.202599504,0.202378845,0.201499201,0.136369195,0.135862877,0.136039489,0.13608268,0.136178043,0.136332419,0.136481236,0.136672388,0.136910581,0.137162885,0.137194958,0.137182557,0.136339689,0.136254589,0.136077121,0.136029226,0.136025378,0.136022812,0.136009127,0.136002286,0.136001002,0.13584962,0.135735442,0.135005042,0.134734776,0.126466893,0.126483143,0.12702966,0.12705489,0.127199858,0.143458092,0.14340592,0.143264373,0.143059536,0.142822626,0.142929108,0.143216478,0.143424736,0.143639408,0.143858785,0.144092701,0.144308656,0.144534875,0.144769646,0.145002279,0.145234485,0.145302907,0.145380736,0.145574027,0.145201557,0.145315736,0.145353795,0.144814548,0.144652475,0.144389479,0.127998679,0.127914863,0.127892199,0.127878087,0.127951212,0.127854567,0.127850718,0.127858415,0.127872528,0.127862691,0.127857988,0.127858843,0.127859698,0.127846869,0.127839172,0.128079503,0.128360459,0.129178951,0.127866968,0.129512506,0.158092169,0.158093452,0.158167433,0.15843171,0.158678028,0.158940168,0.159215992,0.159514909,0.159806128,0.160042609,0.160312019,0.160119156,0.159922871,0.159729154,0.159629087,0.159633791,0.159661587,0.159706061,0.160495474,0.169242309,0.169530107,0.169273098,0.16924573,0.169060137,0.168410132,0.17823375,0.178173454,0.177951512,0.177670983,0.177425093,0.177377626,0.177256606,0.176962393,0.176636963,0.176471041,0.176239264,0.176125513,0.176060512,0.176011762,0.17587834,0.175786399,0.175570443,0.17531429,0.178217927,0.171924432,0.171663575,0.171597719,0.171398441,0.171366369,0.171897918,0.131405216,0.131431301,0.131469789,0.131618178,0.131880745,0.131927785,0.131997489,0.132153576,0.132328478,0.132345583,0.132427261,0.132594894,0.132762527,0.132927593,0.133113614,0.133165358,0.133307761,0.133448452,0.127339267,0.1271943,0.126881698,0.127031798,0.12722295,0.127405122,0.127496209,0.155519948,0.155480177,0.15544725,0.155274058,0.154988399,0.154698889,0.154436322,0.154229347,0.154045464,0.153853884,0.153660166,0.153521613,0.153328749,0.153184209,0.153253057,0.153097398,0.152919931,0.152754008,0.152576968,0.152396078,0.152192097,0.151986832,0.151777292,0.151591698,0.150508072,0.145585572,0.145355506,0.145238333,0.145193432,0.145153234,0.145119878,0.145098069,0.145208399,0.145195143,0.145191721,0.145200702,0.145389289,0.145481229,0.145443598,0.145195998,0.145113465,0.145075832,0.145040339,0.145007839,0.145160077,0.145198991,0.145368762,0.145398697,0.145376887,0.145369617,0.124082831,0.124280826,0.124317602,0.124392866,0.139267274,0.13954267,0.139813791,0.139945075,0.140189254,0.140245274,0.140212774,0.13996945,0.139877936,0.139846719,0.13981379,0.139824909,0.13981935,0.139853988,0.139853988,0.13981935,0.139801389,0.139910436,0.140097313,0.140326952,0.140556164,0.14197976,0.142136274,0.142646014,0.14261223,0.12780325,0.127547098,0.127290944,0.127021962,0.12676581,0.126697388,0.126657191,0.126789329,0.126983476,0.127184463,0.127394004,0.127611243,0.127840455,0.128038877,0.128251411,0.128339504,0.128616611,0.128542631,0.128522532,0.12851013,0.129243523,0.164586225,0.163977701,0.163974708,0.164120959,0.164039281,0.163994806,0.163964444,0.16397428,0.163975136,0.164134216,0.164343329,0.16438096,0.164385237,0.164386948,0.164520797,0.164531488,0.164525074,0.164503692,0.164455797,0.164236421,0.163940497,0.163749344,0.163580856,0.163379868,0.16287526,0.148327564,0.148419506,0.14833569,0.148180031,0.148346808,0.149095168,0.149296584,0.149302999,0.14929915,0.14914905,0.148954476,0.148794542,0.148586283,0.148392138,0.148039767,0.147798153,0.147571507,0.147348709,0.147342295,0.147364532,0.147529171,0.14755825,0.147559533,0.147580487,0.147599303,0.190390542,0.190342646,0.190494456,0.190694162,0.190733932,0.190034749,0.189881657,0.190565871,0.190865216,0.190875051,0.1908789,0.190854952,0.190869064,0.19085367,0.190851531,0.19087163,0.191049526,0.191281731,0.191334331,0.191355285,0.191188508,0.191140613,0.191117948,0.19107775,0.190593668,0.161997754,0.162118775,0.162167525,0.162226539,0.162348414,0.162601573,0.16659739,0.166329691,0.166354921,0.166618344,0.166975846,0.167269631,0.167545883,0.16781957,0.168075295,0.169966722,0.170100571,0.170083894,0.170110407,0.170293006,0.170345605,0.170386658,0.170392645,0.170420869,0.170440113,0.156915747,0.156780186,0.156539856,0.156260183,0.155925345,0.156342717,0.152319104,0.152147623,0.151835449,0.151585283,0.151374888,0.151302189,0.151213241,0.151146958,0.151090083,0.149378263,0.149267933,0.149258097,0.149214906,0.149175991,0.149310269,0.149466355,0.149651948,0.149817443,0.149996622,0.121590577,0.121431498,0.121560643,0.121573472,0.121580742,0.120922186,0.120943567,0.120669453,0.120659617,0.120625835,0.120487709,0.120243102,0.120028001,0.119809908,0.119605498,0.119386978,0.119171877,0.118973027,0.118780592,0.118571478,0.118373912,0.118158384,0.11794029,0.11773246,0.132773645,0.136739954,0.136730119,0.136613803,0.13677331,0.136847291,0.136813936,0.13684387,0.136970022,0.137034595,0.137047424,0.137038871,0.137065812,0.137134234,0.137318972,0.137520816,0.137712823,0.137748317,0.137757297,0.137759008,0.137766277,0.137776113,0.137772264,0.137764139,0.137856508,0.123049666,0.137124398,0.137324958,0.137342064,0.137178708,0.137127392,0.137143214,0.137117128,0.13702818,0.136998674,0.137007226,0.137037588,0.137037588,0.13698114,0.136801107,0.136596697,0.136417091,0.136391432,0.136379032,0.136392288,0.13656548,0.136759198,0.136999956,0.1371043,0.137465222,0.137128675,0.154535106,0.154753627,0.15473866,0.154736949,0.154718561,0.15469333,0.15466254,0.154641586,0.154611225,0.154692476,0.154875503,0.15497001,0.154975997,0.154993958,0.155010208,0.155011063,0.155020471,0.155022609,0.155060668,0.154916983,0.154945635,0.154942642,0.155035438,0.154892608,0.155047412,0.133081543,0.132833087,0.132850192,0.132852758,0.132854468,0.132861738,0.140580967,0.132437524,0.132473018,0.132373807,0.132163838,0.132065055,0.132077456,0.132226701,0.132259201,0.132274168,0.132281866,0.13229726,0.132254069,0.132288708,0.132124924,0.13195216,0.131791369,0.131505282,0.131947028,0.133711875,0.133754639,0.133923982,0.13398214,0.13397487,0.133959903,0.133938521,0.133910297,0.1339026,0.133878225,0.133898752,0.134017634,0.134065957,0.134227174,0.134416189,0.134609052,0.134803626,0.135004187,0.135145733,0.135272313,0.135426262,0.135597743,0.135776922,0.135795738,0.135881264,0.134713395,0.134828429,0.134665072,0.134622309,0.134646256,0.13467448,0.134768988,0.134831422,0.134866489,0.134898133,0.134870765,0.134752738,0.134556453,0.134356321,0.134165167,0.133958621,0.133745231,0.133526282,0.133320162,0.133117036,0.132956673,0.132752692,0.132549138,0.13234259,0.132122358,0.129435104,0.129294412,0.129281155,0.129246944,0.129222569,0.129203325,0.129119937,0.129077174,0.129043818,0.129013884,0.128992502,0.128955297,0.128923653,0.128903981,0.128872764,0.128850527,0.128875758,0.12886635,0.128853521,0.128840264,0.128788093,0.128960429,0.1291627,0.12935984,0.12982981,0.138979904,0.138972634,0.139153951,0.139184313,0.139359216,0.13966925,0.139727836,0.139760764,0.139805666,0.139857409,0.139904877,0.139947213,0.139998101,0.140186261,0.14028034,0.140355604,0.140356459,0.140379551,0.140414617,0.140443697,0.140598928,0.140641264,0.140657085,0.140684882,0.141000049,0.144391617,0.144446782,0.144268886,0.144295827,0.144374084,0.144126056,0.144081583,0.144076023,0.144037536,0.144082866,0.144053359,0.144129906,0.144284281,0.144313361,0.144449348,0.144602869,0.144686258,0.144694382,0.144694382,0.144680271,0.144522902,0.144467737,0.14427359,0.144052075,0.143285327,0.14273154,0.142799962,0.142947923,0.142950062,0.142720422,0.142735389,0.143029174,0.143273781,0.143534637,0.143697139,0.143934476,0.144061483,0.144104247,0.14413632,0.144153425,0.144138885,0.144254346,0.144448493,0.144636652,0.144841489,0.145046325,0.145087806,0.145267413,0.145455572,0.145662547,0.12571725,0.125631295,0.12550386,0.125458958,0.12544955,0.125378136,0.125083923,0.124832046,0.124578887,0.124354807,0.124197437,0.124034508,0.123962238,0.123982337,0.123807862,0.123759967,0.123555985,0.123514505,0.123352431,0.123158286,0.122959435,0.122791376,0.122598939,0.122421044,0.12224443,0.13677887,0.136847718,0.136898607,0.136932818,0.136949495,0.136996963,0.136993542,0.136983706,0.136982851,0.136987983,0.136910153,0.136851567,0.136698474,0.1364389,0.136449163,0.136328571,0.136311893,0.136315741,0.136316597,0.136323439,0.136323866,0.136298636,0.136280248,0.136292649,0.136269557,0.137022193,0.13676775,0.13674081,0.136836173,0.137032029,0.145520145,0.136753639,0.137115845,0.13746565,0.137499433,0.137515684,0.137507986,0.137501144,0.137525092,0.137451538,0.137426736,0.137410058,0.137216339,0.13717828,0.137147491,0.137139793,0.137131668,0.137130812,0.137141931,0.138308518,0.123414011,0.123535887,0.123461906,0.123327628,0.123095851,0.122894435,0.122525386,0.122188838,0.1221542,0.122153773,0.122147358,0.122137094,0.122269661,0.122318839,0.122335517,0.122336799,0.122344497,0.12232397,0.122335089,0.122496735,0.122651538,0.122660092,0.12263144,0.122486044,0.12188308,0.140859357,0.140729784,0.140762284,0.140768699,0.140752021,0.140714389,0.140720803,0.140710541,0.140687021,0.140656231,0.140661363,0.140843535,0.140884588,0.141046233,0.141249787,0.141447354,0.141470019,0.141488407,0.141501236,0.14135242,0.141210445,0.141207879,0.141205741,0.141362683,0.141440512,0.147416704,0.147671573,0.147896509,0.147938845,0.148004273,0.148055589,0.148234341,0.148264275,0.148280097,0.148301907,0.148295064,0.14826513,0.148850561,0.148668817,0.148717139,0.148564901,0.148553783,0.148546513,0.14853625,0.149551454,0.149681883,0.149708824,0.149740896,0.149571981,0.149495434,0.126724328,0.126802159,0.126653342,0.126634954,0.126597749,0.126573374,0.126385215,0.126440807,0.126479722,0.126513933,0.126545578,0.126526762,0.125926791,0.126156858,0.125961429,0.125980673,0.143101016,0.14363727,0.143947733,0.143003516,0.142909864,0.143384966,0.143636415,0.143694146,0.143721942,0.16834,0.168289112,0.168427665,0.168687667,0.168922866,0.169112308,0.169309447,0.169419777,0.169592969,0.169784977,0.169974419,0.170081755,0.170176263,0.170215177,0.170403764,0.170644522,0.153834641,0.153610988,0.153599442,0.153741417,0.153906056,0.153628949,0.153576777,0.153724738,0.153938128,0.153570362,0.153494244,0.164178262,0.152661212,0.152588941,0.152563283,0.152524796,0.152482888,0.152401638,0.152323381,0.152252393,0.152170715,0.152039859,0.151917556,0.151827325,0.151688344,0.151449724,0.151143964,0.150845476,0.150629093,0.150418269,0.150195044,0.149959845,0.149748594,0.15058077,0.139826192,0.139835173,0.139699613,0.139543954,0.13938915,0.139219807,0.139053457,0.138905923,0.138747699,0.138630099,0.138476578,0.138342728,0.138165688,0.137987364,0.137825291,0.137723514,0.137724369,0.137712396,0.137686309,0.137672626,0.137645685,0.137632855,0.137619599,0.137446835,0.136919561,0.122456965,0.122455682,0.122492031,0.122547196,0.122771704,0.122863218,0.122897001,0.122931639,0.122941903,0.122923942,0.122932922,0.12292608,0.122942758,0.122960719,0.122971836,0.122985521,0.122997495,0.123014172,0.123021015,0.12302743,0.123025291,0.12302743,0.12303812,0.123039403,0.123041969,0.144472012,0.144420696,0.144393327,0.144501092,0.144471585,0.144465598,0.144461322,0.144446782,0.144481848,0.144513066,0.144511782,0.144514348,0.144504086,0.144510072,0.144505795,0.144515203,0.144649481,0.144704646,0.144727738,0.144736291,0.144766653,0.144792739,0.144831653,0.14499672,0.145074977,0.14046465,0.140328235,0.140373564,0.140205076,0.140026753,0.139978858,0.139975864,0.139979286,0.13993695,0.139901029,0.139890337,0.140021621,0.140035306,0.140218333,0.140261952,0.140279485,0.140138365,0.140098167,0.140093463,0.140092181,0.140105865,0.140110996,0.140100733,0.139965601,0.139907443,0.114490564,0.11466119,0.114699677,0.114711223,0.114694545,0.114718065,0.114692835,0.114785203,0.114777078,0.114777506,0.114759545,0.114608591,0.11455813,0.114386221,0.114378096,0.11436099,0.114349872,0.11450382,0.114539314,0.114547439,0.114513228,0.114481156,0.114452504,0.114423852,0.114551287,0.145872088,0.145973437,0.14626209,0.146354459,0.146413472,0.146408341,0.146443835,0.1463489,0.146354887,0.146380117,0.146405776,0.14641219,0.146407058,0.146416894,0.146380118,0.14637242,0.146368999,0.146194096,0.146153471,0.146147912,0.146161169,0.146169722,0.146160314,0.146156892,0.146441269,0.138703652,0.138594178,0.138262334,0.138167826,0.138118648,0.138072891,0.138043812,0.13802243,0.138006608,0.137995917,0.137993779,0.138005752,0.138007463,0.137987791,0.137995062,0.13799164,0.138152858,0.138184503,0.138239669,0.138252926,0.138262761,0.138267893,0.138287135,0.138295261,0.137855225,0.133807666,0.133845297,0.134137372,0.13417928,0.134201516,0.134207076,0.134236582,0.134235728,0.134269938,0.134241714,0.134236155,0.134218194,0.134210069,0.134231879,0.13421007,0.134211352,0.134063391,0.134027897,0.13397145,0.133943653,0.133910298,0.133885067,0.133859409,0.13385214,0.134263951,0.12267848,0.122714401,0.12258996,0.122756736,0.122930784,0.12311766,0.123290852,0.123515788,0.123692401,0.123907929,0.124101647,0.124118325,0.124142272,0.124139706,0.124134574,0.124132864,0.124112765,0.12411362,0.124110199,0.124102074,0.124097798,0.124136713,0.12415895,0.124184608,0.123804014,0.142599401,0.142544664,0.142544664,0.142368052,0.142201274,0.142025944,0.1418566,0.141634658,0.141428111,0.141254919,0.141046233,0.141021858,0.140995773,0.140989358,0.140991496,0.14098722,0.140995773,0.140996627,0.141071036,0.141089852,0.141102254,0.141071464,0.141051792,0.14103597,0.141438374,0.134098029,0.134118129,0.134122832,0.134364446,0.134369149,0.134399511,0.134395663,0.134420894,0.1344504,0.134442703,0.134476486,0.134501716,0.13453721,0.134555171,0.134568427,0.134601355,0.134630861,0.134660369,0.13459494,0.134599216,0.134615895,0.134619744,0.134669777,0.134683034,0.134702276,0.123783914,0.123871152,0.123858323,0.123810428,0.124008851,0.124066153,0.124094377,0.124098226,0.124095233,0.124076416,0.124084542,0.124094805,0.12464346,0.124675532,0.124687506,0.12469392,0.124699907,0.124681519,0.124675105,0.124682802,0.124686651,0.124850863,0.124838461,0.124854284,0.124847441,0.144329611,0.144214577,0.144007601,0.143785232,0.143565427,0.143474769,0.143426874,0.143410624,0.143399933,0.143567139,0.143606908,0.143748027,0.143261379,0.143410196,0.143542763,0.143665922,0.143775396,0.143901121,0.144081583,0.144273162,0.144426683,0.144404019,0.144500664,0.144612276,0.144315071,0.155726067,0.155815016,0.156038668,0.156250347,0.156449625,0.156636929,0.156833641,0.157019662,0.157195419,0.157230913,0.157372887,0.157418644,0.157523843,0.157531968,0.157579863,0.157631179,0.157703877,0.157786838,0.157796246,0.157792824,0.157809503,0.157665818,0.157536672,0.157399401,0.157674798,0.122697723,0.122426603,0.122326109,0.122135811,0.121929264,0.121727421,0.121515314,0.121316464,0.121118897,0.121000014,0.120911066,0.120863599,0.120822546,0.120783204,0.120739585,0.12066646,0.120568959,0.120476162,0.120418859,0.120368826,0.120330339,0.120480439,0.120636525,0.120789618,0.120519781,0.14044669,0.140690442,0.140766561,0.140924358,0.141107385,0.141306663,0.141525611,0.141722751,0.141926733,0.142034496,0.142107622,0.142187162,0.142228214,0.142279958,0.142332985,0.142399269,0.142481802,0.142562197,0.142620783,0.142671244,0.142717428,0.142777725,0.142840587,0.142894897,0.143751021,0.129810994],"mean":0.16043251062411357,"singleMean":0.006417300424964543,"variance":0.0041106426333751426,"deviation":0.06411429351849042,"sem":0.001627979613836075,"moe":0.003190840043118707,"rme":1.9888986532129431,"p75":0.156780186,"p95":0.26628692719999997,"p99":0.5526484852400001,"p999":0.581440820184},"errors":{},"options":{"method":"get","concurrencyLevel":25,"start":"2017-05-23T18:54:11.919Z","end":"2017-05-23T18:54:22.013Z"},"request":{},"response":{"header":{"etag":"W/\"1362-HMi8j8vTn2Joxp7cxu1cUHzOtqQ\"","content-type":"text/html; charset=utf-8","content-length":"4962","link":"</_nuxt/manifest.6b6d90b233444d2d861a.js>; rel=preload; as=script, </_nuxt/vendor.bundle.fd151fecad58a8d95cb0.js>; rel=preload; as=script, </_nuxt/nuxt.bundle.af0ac2ba39b126f27e57.js>; rel=preload; as=script, </_nuxt/common.af0ac2ba39b126f27e57.css>; rel=preload; as=style, </_nuxt/2.nuxt.bundle.e9a7db72cd10f7f6bf4e.js>; rel=preload; as=script, </_nuxt/1.nuxt.bundle.65c6b912cdfe7dc5b949.js>; rel=preload; as=script","date":"Tue, 23 May 2017 18:54:12 GMT","connection":"close"},"statusCode":200,"body":"<!DOCTYPE html>\n<html data-n-head-ssr data-n-head=\"\">\n  <head>\n    <meta data-n-head=\"true\" charset=\"utf-8\"/><meta data-n-head=\"true\" name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><meta data-n-head=\"true\" data-hid=\"description\" name=\"description\" content=\"Nuxt.js project\"/><title data-n-head=\"true\">starter</title><link data-n-head=\"true\" rel=\"icon\" type=\"image/x-icon\" href=\"/favicon.ico\"/><link rel=\"preload\" href=\"/_nuxt/manifest.6b6d90b233444d2d861a.js\" as=\"script\"><link rel=\"preload\" href=\"/_nuxt/vendor.bundle.fd151fecad58a8d95cb0.js\" as=\"script\"><link rel=\"preload\" href=\"/_nuxt/nuxt.bundle.af0ac2ba39b126f27e57.js\" as=\"script\"><link rel=\"preload\" href=\"/_nuxt/common.af0ac2ba39b126f27e57.css\" as=\"style\"><link rel=\"preload\" href=\"/_nuxt/2.nuxt.bundle.e9a7db72cd10f7f6bf4e.js\" as=\"script\"><link rel=\"preload\" href=\"/_nuxt/1.nuxt.bundle.65c6b912cdfe7dc5b949.js\" as=\"script\"><link rel=\"prefetch\" href=\"/_nuxt/0.nuxt.bundle.e66a7f2572a0163a9ba4.js\" as=\"script\"><link rel=\"stylesheet\" href=\"/_nuxt/common.af0ac2ba39b126f27e57.css\"><style data-vue-ssr-id=\"9626c0c4:0 32601de0:0 1f728622:0\">html{font-family:Source Sans Pro,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;font-size:16px;word-spacing:1px;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}*,:after,:before,html{-webkit-box-sizing:border-box;box-sizing:border-box}*,:after,:before{margin:0}.button--green{display:inline-block;border-radius:4px;border:1px solid #3b8070;color:#3b8070;text-decoration:none;padding:10px 30px}.button--green:hover{color:#fff;background-color:#3b8070}.button--grey{display:inline-block;border-radius:4px;border:1px solid #35495e;color:#35495e;text-decoration:none;padding:10px 30px;margin-left:15px}.button--grey:hover{color:#fff;background-color:#35495e}\n.container{min-height:100vh;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;text-align:center}.title{font-family:Quicksand,Source Sans Pro,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;display:block;font-weight:300;font-size:100px;color:#35495e;letter-spacing:1px}.subtitle{font-weight:300;font-size:42px;color:#526488;word-spacing:5px;padding-bottom:15px}.links{padding-top:15px}\n.VueToNuxtLogo{display:inline-block;-webkit-animation:turn 2s linear forwards 1s;animation:turn 2s linear forwards 1s;-webkit-transform:rotateX(180deg);transform:rotateX(180deg);position:relative;overflow:hidden;height:180px;width:245px}.Triangle{position:absolute;top:0;left:0;width:0;height:0}.Triangle--one{border-left:105px solid transparent;border-right:105px solid transparent;border-bottom:180px solid #41b883}.Triangle--two{top:30px;border-left:87.5px solid transparent;border-right:87.5px solid transparent;border-bottom:150px solid #3b8070}.Triangle--three,.Triangle--two{left:35px;-webkit-animation:goright .5s linear forwards 3.5s;animation:goright .5s linear forwards 3.5s}.Triangle--three{top:60px;border-left:70px solid transparent;border-right:70px solid transparent;border-bottom:120px solid #35495e}.Triangle--four{top:120px;left:70px;-webkit-animation:godown .5s linear forwards 3s;animation:godown .5s linear forwards 3s;border-left:35px solid transparent;border-right:35px solid transparent;border-bottom:60px solid #fff}@-webkit-keyframes turn{to{-webkit-transform:rotateX(0deg);transform:rotateX(0deg)}}@keyframes turn{to{-webkit-transform:rotateX(0deg);transform:rotateX(0deg)}}@-webkit-keyframes godown{to{top:180px}}@keyframes godown{to{top:180px}}@-webkit-keyframes goright{to{left:70px}}@keyframes goright{to{left:70px}}</style>\n  </head>\n  <body data-n-head=\"\">\n    <div id=\"__nuxt\" data-server-rendered=\"true\"><div class=\"progress\" style=\"width:0%;height:2px;background-color:#3B8070;opacity:0;\" data-v-6b95469f></div><div><section class=\"container\"><div><div class=\"VueToNuxtLogo\"><div class=\"Triangle Triangle--two\"></div><div class=\"Triangle Triangle--one\"></div><div class=\"Triangle Triangle--three\"></div><div class=\"Triangle Triangle--four\"></div></div><h1 class=\"title\">\n      Nuxt\n    </h1><h2 class=\"subtitle\">\n      #0 Universal Vue.js Application\n    </h2><div class=\"links\"><a href=\"/page2\" aria-disabled=\"false\" class=\"btn btn-success\">Page 2</a></div></div></section></div></div><script type=\"text/javascript\">window.__NUXT__={\"layout\":\"default\",\"data\":[{}],\"error\":null,\"state\":{\"title\":\"Nuxt\",\"ctr\":0},\"serverRendered\":true}</scr"+"ipt><script src=\"/_nuxt/manifest.6b6d90b233444d2d861a.js\"></scr"+"ipt><script src=\"/_nuxt/2.nuxt.bundle.e9a7db72cd10f7f6bf4e.js\"></scr"+"ipt><script src=\"/_nuxt/1.nuxt.bundle.65c6b912cdfe7dc5b949.js\"></scr"+"ipt><script src=\"/_nuxt/vendor.bundle.fd151fecad58a8d95cb0.js\"></scr"+"ipt><script src=\"/_nuxt/nuxt.bundle.af0ac2ba39b126f27e57.js\"></scr"+"ipt>\n  </body>\n</html>\n","type":"text/html"},"hz":155.8287650224082}}},"info":{"date":"2017-05-23T18:54:22.052Z","apiName":"2.3"}};
+    // --></script>
+    <div id="report">
+      <div id="report-details"><h1>Api Benchmark report</h1></div>
+      <div id="charts"></div>
+    </div>
+    <div style="text-align: center">
+    Generated by <a href="https://github.com/matteofigus/api-benchmark" target="_blank">api-benchmark</a><br /><br />
+    <iframe src="http://ghbtns.com/github-btn.html?user=matteofigus&repo=api-benchmark&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>
+    </div>
+    <script>
+
+      var selectors = {
+        charts: '#charts',
+        reportDetails: '#report-details',
+        panel: '.panel',
+        panels: {
+          stats: '.stats',
+          distribution: '.distribution',
+          response: '.response',
+          request: '.request'
+        },
+        button: '.button',
+        buttons: {
+          stats: '.button-stats',
+          distribution: '.button-distribution',
+          response: '.button-response',
+          request: '.button-request'
+        }
+      };
+
+      var formatNumber = function(number) {
+        number = String(number).split('.');
+        return number[0].replace(/(?=(?:\d{3})+$)(?!\b)/g, ',') +
+          (number[1] ? '.' + number[1] : '');
+      };
+
+      var formatDate = function(date){
+        return date.replace(/T/g, ' ').replace(/Z/g, ' ');
+      };
+
+      var fixNumber = function(number, digits){
+        return formatNumber(number.toFixed(digits));
+      };
+
+      var decodeHtml = function(text){
+        return $('<div/>').text(text).html();
+      };
+
+      var templates = {
+        reportDetails: function(info){
+          var formattedDate = formatDate(info.date);
+          return 'Benchmarked ' + info.apiName + ' on ' + formattedDate;
+        },
+        route: function(routeData, i){
+          var errorsCount = 0,
+              errorsDesc = '(',
+              duration = (new Date(routeData.options.end) - new Date(routeData.options.start))/1e3;
+
+          for(var errorType in routeData.errors){
+            errorsCount += routeData.errors[errorType].length;
+            errorsDesc += routeData.errors[errorType].length + ' ' + errorType + ',';
+          }
+
+          if(errorsCount == 0)
+            errorsDesc = '';
+          else
+            errorsDesc = errorsDesc.substr(0, errorsDesc.length - 1) + ')';
+
+          var template = '<div class="route"><div class="buttons">' +
+            '<a href="#stats" class="button button-stats selected">Stats</a>' +
+            '<a href="#distribution" class="button button-distribution">Distribution</a>' +
+            '<a href="#request" class="button button-request">Request details</a>' +
+            '<a href="#response" class="button button-response">Response details</a>' +
+            '</div><div class="stats panel"><div class="chart" id="chart' + i + '"></div>' +
+            '<div class="stats-details"><ul><li>' + routeData.stats.sample.length + ' run' +
+            (routeData.stats.sample.length > 1 ? 's' : '') + ' sampled with concurrency: ' +
+            routeData.options.concurrencyLevel + '</li>';
+
+          if(routeData.options.expectedStatusCode)
+            template += '<li>Expected status code: ' + routeData.options.expectedStatusCode + '</li>';
+
+          if(routeData.options.maxMean)
+            template += '<li>Expected max mean: ' + routeData.options.maxMean + '</li>';
+
+          if(routeData.options.maxSingleMean)
+            template += '<li>(*) Expected max mean across all concurrent requests: ' + routeData.options.maxSingleMean + '</li>';
+
+          template += '</ul><ul><li>Started: ' + formatDate(routeData.options.start) + '</li>' +
+            '<li>Ended: ' + formatDate(routeData.options.end) + ' (' + duration + ' seconds)</li>' +
+            '<li>' + fixNumber(routeData.hz, 2) + ' ops/sec \xb1 ' + fixNumber(routeData.stats.rme, 2) + '%</li>' +
+
+            '<li class="' + (!errorsCount ? 'green' : 'red') + '">' + errorsCount + ' error' +
+            (errorsCount == 1 ? '' : 's') + ' ' + errorsDesc + '</li>' +
+
+            '<li>Sample arithmetic mean: ' + fixNumber(routeData.stats.mean, 6) + '</li>';
+
+          if(routeData.options.concurrencyLevel > 1)
+            template += '<li>Mean across all the concurrent requests: ' + fixNumber(routeData.stats.singleMean, 6) + '</li>';
+
+          template += '<li>Sample standard deviation: ' + fixNumber(routeData.stats.deviation, 6) + '</li>' +
+            '<li>Margin of error: ' + fixNumber(routeData.stats.moe, 6) + '</li>' +
+            '<li>The standard error of the mean: ' + fixNumber(routeData.stats.sem, 6) + '</li>' +
+            '<li>The sample variance: ' + fixNumber(routeData.stats.variance, 6) + '</li>' +
+            '</ul><ul><li>75% Percentile: ' + fixNumber(routeData.stats.p75, 6) + '</li>' +
+            '<li>95% Percentile: ' + fixNumber(routeData.stats.p95, 6) + '</li>' +
+            '<li>99% Percentile: ' + fixNumber(routeData.stats.p99, 6) + '</li>' +
+            '<li>99.9% Percentile: ' + fixNumber(routeData.stats.p999, 6) + '</li>' +
+            '</ul></div></div><div class="distribution panel"><div class="distchart" id="distchart' + i + '">' +
+            '</div></div><div class="request panel hide">Request: ' + routeData.options.method.toUpperCase() +
+            ' <a href="' + routeData.href + '" target="_blank">' +
+            routeData.href + '</a><br />Concurrency level: ' + routeData.options.concurrencyLevel + '<br />';
+
+          if(routeData.options.delay)
+            template += 'Delay between bench cycles: ' + routeData.options.delay + '<br />';
+
+          var requestHeaders = 'none',
+              requestData = 'none',
+              requestQuery = 'none';
+
+          if(!!routeData.request.headers)
+            requestHeaders = '<br /><pre><code>' + JSON.stringify(routeData.request.headers, undefined, 2) + '</pre></code>';
+
+          if(!!routeData.request.data)
+            requestData = '<br /><pre><code>' + JSON.stringify(routeData.request.data, undefined, 2) + '</pre></code>';
+
+          if(!!routeData.request.query)
+            requestQuery = '<br /><pre><code>' + JSON.stringify(routeData.request.query, undefined, 2) + '</pre></code>';
+
+          template += '<br />Headers sent: ' + requestHeaders + '<br />Data sent: ' + requestData + '<br />Query sent: ' + requestQuery + '<br /></div><div class="response panel hide">Data here refers to the first sampled response.<br /><br />';
+
+          var responseHeader = JSON.stringify(routeData.response.header, undefined, 2),
+              responseBody = '';
+
+          try {
+            responseBody = JSON.stringify(JSON.parse(decodeHtml(routeData.response.body)), undefined, 2);
+          } catch(e){
+            responseBody = decodeHtml(routeData.response.body);
+          }
+
+          template += 'Response status: ' + routeData.response.statusCode + '<br />Response headers:<br />' +
+            '<pre><code>' + responseHeader + '</code></pre>' +
+            '<br />Response body:<br /><pre><code>' + responseBody + '</code></pre><br /></div></div>';
+
+          return template;
+        }
+      };
+
+      var bindButtons = function(){
+        var bindButton = function(panelName){
+          $(selectors.buttons[panelName]).click(function(){
+            var $sender = $(this),
+                $panelsContainer = $sender.parent().parent();
+
+            $panelsContainer.find(selectors.button).removeClass('selected');
+            $sender.addClass('selected');
+
+            $panelsContainer.find(selectors.panel).addClass('hide');
+            $panelsContainer.find(selectors.panels[panelName]).removeClass('hide');
+
+            return false;
+          });
+        };
+
+        bindButton('stats');
+        bindButton('distribution');
+        bindButton('response');
+        bindButton('request');
+      };
+
+      $(function(){
+        $(selectors.reportDetails).append(templates.reportDetails(data.info));
+
+        var counter = 0;
+        for(serviceName in data.benchmark){
+          for(routeName in data.benchmark[serviceName]){
+            $(selectors.charts).append(templates.route(data.benchmark[serviceName][routeName], counter));
+
+            var samples = data.benchmark[serviceName][routeName]['stats']['sample'],
+                meanArray = [],
+                mean = data.benchmark[serviceName][routeName]['stats']['mean'],
+                singleMeanArray = [],
+                singleMean = data.benchmark[serviceName][routeName]['stats']['singleMean'],
+                maxMeanArray = [],
+                maxMean = data.benchmark[serviceName][routeName].options.maxMean !== undefined,
+                maxSingleMeanArray = [],
+                maxSingleMean = data.benchmark[serviceName][routeName].options.maxSingleMean !== undefined,
+                errorsArray = [],
+                areThereSomeErrors = false;
+
+            for(var i = 0; i < samples.length; i++){
+              meanArray.push(mean);
+              singleMeanArray.push(singleMean);
+
+              errorsArray.push(null);
+
+              if(maxMean)
+                maxMeanArray.push(data.benchmark[serviceName][routeName].options.maxMean);
+
+              if(maxSingleMean)
+                maxSingleMeanArray.push(data.benchmark[serviceName][routeName].options.maxSingleMean);
+            }
+
+            for(var errorType in data.benchmark[serviceName][routeName].errors){
+              var errorsOfType = data.benchmark[serviceName][routeName]['errors'][errorType];
+              for(var i = 0; i < errorsOfType.length; i++){
+                if(errorsOfType[i].pos !== undefined){
+                  errorsArray[errorsOfType[i].pos] = data.benchmark[serviceName][routeName]['stats']['sample'][errorsOfType[i].pos];
+                  areThereSomeErrors = true;
+                }
+              }
+            }
+
+            var getSeriesOptions = function(label, color){
+              return {
+                showMarker: false,
+                pointLabels: { show: true },
+                label: label,
+                color: color
+              };
+            };
+
+            var lines = [samples],
+                series = [getSeriesOptions('Samples', '#6699FF')];
+
+            if(maxMean){
+              lines.push(maxMeanArray);
+              series.push(getSeriesOptions('Max Mean', '#F90'));
+            }
+
+            lines.push(meanArray);
+            series.push(getSeriesOptions('Mean', '#66FF00'));
+
+            if(maxSingleMean){
+              lines.push(maxSingleMeanArray);
+              series.push(getSeriesOptions('Max Single Mean (*)', '#EBFF00'));
+
+              lines.push(singleMeanArray);
+              series.push(getSeriesOptions('Single mean', '#FC6333'));
+            }
+
+            if(areThereSomeErrors > 0){
+              lines.push(errorsArray);
+              series.push({
+                showLine:false,
+                markerOptions: { size: 7, style:'x' },
+                label: 'Errors',
+                color: '#FF0000'
+              });
+            }
+
+            var options = {
+              title: {
+                text: data.benchmark[serviceName][routeName]['name'],
+                color: '#F1F1F1'
+              },
+              animate: true,
+              grid: {
+                background: '#000000', textColor: '#F1F1F1'
+              },
+              seriesDefaults:{
+                rendererOptions: {
+                  showDataLabels: true
+                }
+              },
+              highlighter: {
+                show: true,
+                sizeAdjust: 7.5
+              },
+              cursor:{
+                show: true,
+                zoom:true,
+              },
+              legend: {
+                show:true,
+                location: 'se',
+                background: 'rgba(101, 0, 253, 0.89)'
+              },
+              axesDefaults: {
+                labelRenderer: $.jqplot.CanvasAxisLabelRenderer
+              },
+              axes: {
+                xaxis: {
+                  label: 'Samples',
+                  pad: 0
+                },
+                yaxis: {
+                  label: 'Response time (seconds)',
+                  tickOptions: {
+                    formatString:'%.6f'
+                  }
+                }
+              },
+              series: series
+            };
+
+            $.jqplot('chart' + counter, lines, options);
+            counter++;
+          }
+        }
+        hljs.initHighlightingOnLoad();
+        bindButtons();
+      });
+
+      $(function(){
+        var counter = 0;
+        for(serviceName in data.benchmark){
+          for(routeName in data.benchmark[serviceName]){
+            var samples = data.benchmark[serviceName][routeName]['stats']['sample'];
+            var sortedSamples = _.orderBy(samples);
+            var totalDelta = sortedSamples[sortedSamples.length - 1] - sortedSamples[0];
+
+            var bucketCount = ~~Math.min(totalDelta*1000, sortedSamples.length);
+            var delta = totalDelta/bucketCount;
+
+            var buckets = [[sortedSamples[0] + delta/2.0, 0]];
+
+            for (var i = 0; i < samples.length; i++) {
+              var s = sortedSamples[i];
+              while(s > (sortedSamples[0] + buckets.length * delta)) {
+                buckets.push([(sortedSamples[0] + buckets.length * delta + delta/2.0), 0]);
+              }
+              buckets[buckets.length - 1][1]++;
+            }
+
+            buckets = _.map(buckets, function(b){
+              return [b[0], 100*b[1]/samples.length];
+            });
+
+
+            var lines = [buckets],
+                series = [{
+                  showMarker: false,
+                  pointLabels: { show: true },
+                  label: 'Samples',
+                  color: '#6699FF',
+                  rendererOptions: {
+                    smooth: true
+                  }
+                }];
+
+            var options = {
+              title: {
+                text: data.benchmark[serviceName][routeName]['name'],
+                color: '#F1F1F1'
+              },
+              animate: true,
+              grid: {
+                background: '#000000', textColor: '#F1F1F1'
+              },
+              seriesDefaults:{
+                rendererOptions: {
+                  showDataLabels: true
+                }
+              },
+              highlighter: {
+                show: true,
+                sizeAdjust: 7.5
+              },
+              legend: {
+                show:true,
+                location: 'se',
+                background: 'rgba(101, 0, 253, 0.89)'
+              },
+              cursor:{
+                show: true,
+                zoom:true,
+              },
+              axesDefaults: {
+                labelRenderer: $.jqplot.CanvasAxisLabelRenderer
+              },
+              axes: {
+                xaxis: {
+                  label: 'Response time (seconds)',
+                  tickOptions: {
+                    formatString:'%.3f'
+                  }
+                },
+                yaxis: {
+                  label: 'Percent of responses',
+                  tickOptions: {
+                    formatString: '%.1f%'
+                  }
+                }
+              },
+              series: series
+            };
+
+            $.jqplot('distchart' + counter, lines, options);
+            counter++;
+          }
+        }
+        $(".distribution.panel").addClass('hide');
+      });
+    </script>
+  </body>
+</html>
