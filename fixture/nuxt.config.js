@@ -1,6 +1,5 @@
 module.exports = {
   dev: false,
-  rootDir: __dirname,
   srcDir: __dirname,
   head: {
     title: 'starter',

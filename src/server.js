@@ -1,5 +1,5 @@
 const Nuxt = require('nuxt')
-const defaultConfig = require('./nuxt.config')
+const defaultConfig = require('../fixture/nuxt.config')
 const fs = require('fs-extra')
 const path = require('path')
 const _ = require('lodash')
@@ -21,11 +21,11 @@ async function buildAndRun(config) {
 }
 
 async function copyVendorSet(vendorSet) {
-  const rootDir = path.resolve(__dirname, 'vendor', vendorSet)
+  const rootDir = path.resolve(__dirname, '..', 'vendor', vendorSet)
   const packages = await fs.readdir(rootDir)
   await packages.map(p => {
     console.log(`${vendorSet}/${p} ~> node_modules...`)
-    return fs.copy(path.resolve(rootDir, p), path.resolve('node_modules', p))
+    return fs.copy(path.resolve(rootDir, p), path.resolve(__dirname, '..', 'node_modules', p))
   })
 }
 
