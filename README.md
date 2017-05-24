@@ -20,7 +20,10 @@
 # install dependencies
 $ npm install # Or yarn install
 
-# run benchmarks
-$ npm run benchmark
+# run benchmarks on starter
+$ npm run benchmark-starter
+
+# run benchmarks on nxutjs.org website
+$ npm run benchmark-website
 
 ```

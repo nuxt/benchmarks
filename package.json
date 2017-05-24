@@ -6,16 +6,32 @@
   "private": true,
   "dependencies": {
     "api-benchmark": "^0.4.2",
+    "axios": "^0.15.3",
     "bootstrap-vue": "^0.16.1",
+    "download": "^5.0.2",
+    "front-matter": "^2.1.1",
     "fs-extra": "^3.0.1",
+    "glob": "^7.1.1",
+    "highlight.js": "^9.10.0",
+    "lodash": "^4.17.4",
+    "marked": "^0.3.6",
+    "micro": "^6.1.0",
+    "node-sass": "^4.5.1",
+    "normalize.css": "^5.0.0",
     "nuxt": "latest",
-    "open": "^0.0.5"
+    "open": "^0.0.5",
+    "pify": "^2.3.0",
+    "rimraf": "^2.5.4",
+    "sass-loader": "^6.0.3",
+    "uuid": "^3.0.1"
   },
   "scripts": {
-    "benchmark": "node src",
-    "dev": "nuxt dev --config-file fixture/nuxt.config.js",
+    "benchmark-starter": "node src/ starter",
+    "benchmark-website": "node src/ website",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "precommit": "npm run lint"
+    "precommit": "npm run lint",
+    "starter": "nuxt --config-file fixtures/starter/nuxt.config.js",
+    "website": "nuxt --config-file fixtures/website/nuxtjs.org/nuxt.config.js"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
