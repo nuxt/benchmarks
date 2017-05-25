@@ -3,9 +3,8 @@
 
 ## Results 
 
-- [2.3](https://1-92262896-gh.circle-artifacts.com/0/usr/src/app/benchmarks/2.3.html)
-- [2.3 with gzip enabled](https://1-92262896-gh.circle-artifacts.com/0/usr/src/app/benchmarks/2.3-gzip.html)
-- [dev](https://1-92262896-gh.circle-artifacts.com/0/usr/src/app/benchmarks/dev.html)   
+- [starter-2.3](https://4-92262896-gh.circle-artifacts.com/0/usr/src/app/benchmarks/starter-2.3.html)
+- [starter-dev](https://4-92262896-gh.circle-artifacts.com/0/usr/src/app/benchmarks/starter-dev.html)   
 
 ## Testing environment specs
 - Using nuxt 1.0.0-alpha1
