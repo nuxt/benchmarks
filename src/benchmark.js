@@ -7,7 +7,7 @@ const defaultOptions = {
   runMode: 'parallel',
   debug: true,
   maxTime: 60, // in seconds,
-  maxConcurrentRequests: 50,
+  maxConcurrentRequests: 4,
   minSamples: 50000,
   routes: {base: '/'}
 }
