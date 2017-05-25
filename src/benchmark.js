@@ -15,7 +15,7 @@ const defaultOptions = {
 module.exports.benchmark = function benchmark(_options) {
   const options = Object.assign({}, defaultOptions, _options)
   const { name, url, routes, fixture } = options
-  console.log(`Running ${fixture} ${name}`)
+  console.log(`Benchmarking ${fixture} ${name} : ${url}`)
   return new Promise((resolve, reject) => {
     apiBenchmark.measure({[name]: url}, routes, options, (err, results) => {
       if (err) {
@@ -25,7 +25,7 @@ module.exports.benchmark = function benchmark(_options) {
         if (err2) {
           return reject(err2)
         }
-        let file = 'benchmarks/' + fixture + '-' + name + '.html'
+        let file = 'benchmarks/' + name + '.html'
         fs.writeFileSync(file, html)
         open(file)
         resolve(file)

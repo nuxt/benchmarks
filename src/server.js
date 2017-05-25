@@ -1,7 +1,7 @@
 const fs = require('fs-extra')
 const path = require('path')
 
-process.env.DEBUG = 'nuxt:*'
+// process.env.DEBUG = 'nuxt:*'
 
 async function copyVendorSet(vendorSet) {
   const rootDir = path.resolve(__dirname, '..', 'vendor', vendorSet)
