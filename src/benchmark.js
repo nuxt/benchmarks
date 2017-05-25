@@ -6,8 +6,8 @@ const defaultOptions = {
   url: 'http://localhost:3000',
   runMode: 'parallel',
   debug: true,
-  maxTime: 10, // in seconds,
-  maxConcurrentRequests: 25,
+  maxTime: 60, // in seconds,
+  maxConcurrentRequests: 50,
   minSamples: 50000,
   routes: {base: '/'}
 }

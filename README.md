@@ -10,7 +10,7 @@
 - Using nuxt 1.0.0-alpha1
 - `gzip` disabled
 - `extractCSS` enabled
-- **25** parallel requests for **10** seconds (up to 5000 samples)  
+- **50** parallel requests for **60** seconds (up to 5000 samples)  
 - Using store and plugins
 
 ## Running locally
