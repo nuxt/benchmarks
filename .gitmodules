@@ -1,0 +1,6 @@
+[submodule "fixtures/website/docs"]
+	path = fixtures/website/docs
+	url = https://github.com/nuxt/docs.git
+[submodule "fixtures/website/nuxtjs.org"]
+	path = fixtures/website/nuxtjs.org
+	url = https://github.com/nuxt/nuxtjs.org.git
