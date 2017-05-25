@@ -23,6 +23,13 @@ jobs:
           paths:
             - "node_modules"
 
+      # Fixture dependencies
+      - run:
+          name: Website Deps
+          command: |
+            cd fixtures/website/nuxtjs.org
+            yarn
+
       # Benchmark
       - run:
           name: Benchmark
