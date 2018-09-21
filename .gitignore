@@ -6,8 +6,10 @@ node_modules
 
 # Nuxt build
 .nuxt
+dist
 
 .idea
 *.iml
 
 benchmarks/*.html
+

@@ -1,0 +1,7 @@
+{
+  "name": "nuxt-benchmark-1.x",
+  "private": true,
+  "dependencies": {
+    "nuxt": "^1.4.2"
+  }
+}
