@@ -3,7 +3,7 @@
   "private": true,
   "dependencies": {
     "api-benchmark": "^0.4.2",
-    "axios": "^0.15.3",
+    "axios": "^0.18.0",
     "bootstrap-vue": "^0.16.1",
     "download": "^5.0.2",
     "front-matter": "^2.1.1",
