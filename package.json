@@ -2,7 +2,7 @@
   "name": "nuxt-benchmark",
   "private": true,
   "dependencies": {
-    "api-benchmark": "^0.4.2",
+    "api-benchmark": "^1.0.1",
     "axios": "^0.15.3",
     "bootstrap-vue": "^0.16.1",
     "download": "^5.0.2",
