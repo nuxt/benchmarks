@@ -18,7 +18,7 @@
     "nuxt": "latest",
     "open": "^0.0.5",
     "pify": "^2.3.0",
-    "rimraf": "^2.5.4",
+    "rimraf": "^3.0.2",
     "sass-loader": "^6.0.3",
     "uuid": "^3.0.1"
   },
