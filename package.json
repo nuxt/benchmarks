@@ -20,7 +20,7 @@
     "pify": "^2.3.0",
     "rimraf": "^2.5.4",
     "sass-loader": "^6.0.3",
-    "uuid": "^3.0.1"
+    "uuid": "^8.3.2"
   },
   "scripts": {
     "benchmark-starter": "node src/ starter",
