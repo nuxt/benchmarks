@@ -13,7 +13,7 @@
     "lodash": "^4.17.4",
     "marked": "^0.3.6",
     "micro": "^6.1.0",
-    "node-sass": "^4.5.1",
+    "node-sass": "^5.0.0",
     "normalize.css": "^5.0.0",
     "nuxt": "latest",
     "open": "^0.0.5",
