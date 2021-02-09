@@ -16,7 +16,7 @@
     "node-sass": "^4.5.1",
     "normalize.css": "^5.0.0",
     "nuxt": "latest",
-    "open": "^0.0.5",
+    "open": "^7.4.0",
     "pify": "^2.3.0",
     "rimraf": "^2.5.4",
     "sass-loader": "^6.0.3",
