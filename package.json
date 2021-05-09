@@ -2,25 +2,25 @@
   "name": "nuxt-benchmark",
   "private": true,
   "dependencies": {
-    "api-benchmark": "^0.4.2",
-    "axios": "^0.15.3",
-    "bootstrap-vue": "^0.16.1",
-    "download": "^5.0.2",
-    "front-matter": "^2.1.1",
+    "api-benchmark": "^0.5.0",
+    "axios": "^0.21.1",
+    "bootstrap-vue": "^0.23.1",
+    "download": "^5.0.3",
+    "front-matter": "^2.3.0",
     "fs-extra": "^3.0.1",
-    "glob": "^7.1.1",
-    "highlight.js": "^9.10.0",
-    "lodash": "^4.17.4",
-    "marked": "^0.3.6",
-    "micro": "^6.1.0",
-    "node-sass": "^4.5.1",
+    "glob": "^7.1.7",
+    "highlight.js": "^9.18.5",
+    "lodash": "^4.17.21",
+    "marked": "^0.8.2",
+    "micro": "^6.2.1",
+    "node-sass": "^4.14.1",
     "normalize.css": "^5.0.0",
     "nuxt": "latest",
     "open": "^0.0.5",
     "pify": "^2.3.0",
-    "rimraf": "^2.5.4",
-    "sass-loader": "^6.0.3",
-    "uuid": "^3.0.1"
+    "rimraf": "^2.7.1",
+    "sass-loader": "^6.0.7",
+    "uuid": "^3.4.0"
   },
   "scripts": {
     "benchmark-starter": "node src/ starter",
@@ -32,12 +32,12 @@
     "website": "nuxt --config-file fixtures/website/nuxt.config.js"
   },
   "devDependencies": {
-    "babel-eslint": "^7.1.1",
-    "eslint": "^3.15.0",
+    "babel-eslint": "^7.2.3",
+    "eslint": "^3.19.0",
     "eslint-config-standard": "^6.2.1",
-    "eslint-loader": "^1.6.1",
-    "eslint-plugin-html": "^2.0.0",
-    "eslint-plugin-promise": "^3.4.1",
-    "eslint-plugin-standard": "^2.0.1"
+    "eslint-loader": "^1.9.0",
+    "eslint-plugin-html": "^2.0.3",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-standard": "^2.3.1"
   }
 }
