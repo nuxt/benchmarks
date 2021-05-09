@@ -2,6 +2,6 @@
   "name": "nuxt-benchmark-0.x",
   "private": true,
   "dependencies": {
-    "nuxt": "^0.10.7"
+    "nuxt": "^2.15.5"
   }
 }
